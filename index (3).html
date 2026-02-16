@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quay Lì Xì Tết Ngọ 2026</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  text-align:center;
+  font-family:Arial;
+  color:white;
+  background:
+    radial-gradient(circle at 20% 20%, #ffd27a55, transparent 40%),
+    radial-gradient(circle at 80% 30%, #fff2aa44, transparent 45%),
+    linear-gradient(135deg,#8b0000,#c21807,#ff6b35);
+}
+
+/* hoa rơi */
+.flower{
+  position:absolute;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  from{transform:translateY(-10vh) rotate(0)}
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+
+/* ngựa */
+.horse{
+  position:absolute;
+  bottom:20px;
+  left:-120px;
+  font-size:70px;
+  animation:run 7s linear infinite;
+}
+@keyframes run{
+  0%{left:-120px;transform:scaleX(1) translateY(0)}
+  25%{transform:scaleX(1) translateY(-12px)}
+  50%{left:100%;transform:scaleX(-1) translateY(0)}
+  75%{transform:scaleX(-1) translateY(-12px)}
+  100%{left:-120px;transform:scaleX(1) translateY(0)}
+}
+
+.container{
+  margin-top:45px;
+  position:relative;
+  z-index:2;
+}
+
+h1{
+  font-size:42px;
+  text-shadow:0 0 15px gold;
+}
+
+.sub{
+  margin-top:8px;
+  opacity:.9;
+}
+
+/* lì xì */
+#lixi{
+  width:240px;
+  height:330px;
+  margin:20px auto;
+  border-radius:28px;
+  background:linear-gradient(145deg,#ffe066,#ffbf00);
+  box-shadow:0 0 35px gold;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:34px;
+  font-weight:bold;
+  color:#a80000;
+  transition:.4s;
+}
+
+/* nút */
+button{
+  margin-top:20px;
+  padding:14px 40px;
+  font-size:22px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(#ffe066,#ffbf00);
+  color:#a80000;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{transform:scale(1.08);}
+button:disabled{opacity:.6}
+
+/* tiền rơi */
+.money{
+  position:absolute;
+  top:-40px;
+  font-size:30px;
+  animation:moneyFall linear forwards;
+}
+@keyframes moneyFall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* pháo hoa */
+.fire{
+  position:absolute;
+  font-size:36px;
+  animation:boom 1s ease-out forwards;
+}
+@keyframes boom{
+  from{transform:scale(0);opacity:1}
+  to{transform:scale(2);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="horse">🐎</div>
+
+<div class="container">
+  <h1>🧧 Quay Lì Xì Tết Ngọ 2026 🧧</h1>
+  <div class="sub">Mỗi người chỉ quay 1 lần 🎊</div>
+
+  <div id="lixi">NHẤN QUAY</div>
+  <button id="btn" onclick="quay()">QUAY NGAY</button>
+</div>
+
+<script>
+
+/* ===== hoa rơi ===== */
+for(let i=0;i<20;i++){
+  let f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML=Math.random()>0.5?"🌸":"✨";
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize=(18+Math.random()*15)+"px";
+  f.style.animationDuration=(5+Math.random()*6)+"s";
+  document.body.appendChild(f);
+}
+
+/* ===== CHẶN DEVTOOLS CƠ BẢN ===== */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+document.addEventListener("keydown",function(e){
+
+  if(e.key==="F12") e.preventDefault();
+
+  if(e.ctrlKey && e.shiftKey &&
+    ["I","J","C"].includes(e.key)){
+    e.preventDefault();
+  }
+
+  if(e.ctrlKey && e.key==="u"){
+    e.preventDefault();
+  }
+});
+
+/* ===== KEY ===== */
+const KEY_PLAY="lixi2026_played";
+const KEY_RESULT="lixi2026_result";
+
+/* đã quay */
+if(localStorage.getItem(KEY_PLAY)){
+  lixi.innerHTML=localStorage.getItem(KEY_RESULT);
+  btn.disabled=true;
+}
+
+/* ===== random ===== */
+function randomTien(){
+
+  let r=Math.random()*100;
+
+  if(r<45) return 1000;
+  if(r<80) return 2000;
+  if(r<99) return 5000;
+
+  const big=[10000,20000,50000,100000,200000,500000];
+  return big[Math.floor(Math.random()*big.length)];
+}
+
+/* ===== hiệu ứng ===== */
+function moneyRain(){
+  for(let i=0;i<25;i++){
+    let m=document.createElement("div");
+    m.className="money";
+    m.innerHTML="💵";
+    m.style.left=Math.random()*100+"vw";
+    m.style.animationDuration=(2+Math.random()*2)+"s";
+    document.body.appendChild(m);
+    setTimeout(()=>m.remove(),4000);
+  }
+}
+
+function firework(){
+  for(let i=0;i<10;i++){
+    let f=document.createElement("div");
+    f.className="fire";
+    f.innerHTML="🎆";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*60+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  }
+}
+
+/* ===== QUAY ===== */
+function quay(){
+
+  if(localStorage.getItem(KEY_PLAY)) return;
+
+  lixi.innerHTML="ĐANG MỞ...";
+  lixi.style.transform="scale(1.12) rotate(4deg)";
+
+  setTimeout(()=>{
+
+    let tien=randomTien();
+    let text=tien.toLocaleString("vi-VN")+"đ";
+
+    lixi.innerHTML=text;
+    lixi.style.transform="scale(1)";
+
+    localStorage.setItem(KEY_PLAY,"1");
+    localStorage.setItem(KEY_RESULT,text);
+
+    btn.disabled=true;
+
+    if(tien>=10000){
+      firework();
+      moneyRain();
+    }
+
+  },900);
+}
+</script>
+
+</body>
+</html>
