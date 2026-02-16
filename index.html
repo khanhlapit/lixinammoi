@@ -40,12 +40,13 @@ body{
 }
 @keyframes run{
   0%{left:-120px;transform:scaleX(1) translateY(0)}
-  25%{transform:scaleX(1) translateY(-12px)}
+  25%{transform:scaleX(1) translateY(-10px)}
   50%{left:100%;transform:scaleX(-1) translateY(0)}
-  75%{transform:scaleX(-1) translateY(-12px)}
+  75%{transform:scaleX(-1) translateY(-10px)}
   100%{left:-120px;transform:scaleX(1) translateY(0)}
 }
 
+/* UI */
 .container{
   margin-top:45px;
   position:relative;
@@ -53,7 +54,7 @@ body{
 }
 
 h1{
-  font-size:42px;
+  font-size:40px;
   text-shadow:0 0 15px gold;
 }
 
@@ -93,31 +94,6 @@ button{
 }
 button:hover{transform:scale(1.08);}
 button:disabled{opacity:.6}
-
-/* tiền rơi */
-.money{
-  position:absolute;
-  top:-40px;
-  font-size:30px;
-  animation:moneyFall linear forwards;
-}
-@keyframes moneyFall{
-  to{
-    transform:translateY(110vh) rotate(360deg);
-    opacity:0;
-  }
-}
-
-/* pháo hoa */
-.fire{
-  position:absolute;
-  font-size:36px;
-  animation:boom 1s ease-out forwards;
-}
-@keyframes boom{
-  from{transform:scale(0);opacity:1}
-  to{transform:scale(2);opacity:0}
-}
 </style>
 </head>
 
@@ -146,69 +122,40 @@ for(let i=0;i<20;i++){
   document.body.appendChild(f);
 }
 
-/* ===== CHẶN DEVTOOLS CƠ BẢN ===== */
+/* ===== CHẶN DEVTOOLS cơ bản ===== */
 document.addEventListener("contextmenu",e=>e.preventDefault());
 
 document.addEventListener("keydown",function(e){
-
   if(e.key==="F12") e.preventDefault();
 
   if(e.ctrlKey && e.shiftKey &&
     ["I","J","C"].includes(e.key)){
-    e.preventDefault();
+      e.preventDefault();
   }
 
   if(e.ctrlKey && e.key==="u"){
-    e.preventDefault();
+      e.preventDefault();
   }
 });
 
-/* ===== KEY ===== */
-const KEY_PLAY="lixi2026_played";
-const KEY_RESULT="lixi2026_result";
+/* ===== LOCAL STORAGE ===== */
+const KEY_PLAY="lixi_play_2026";
+const KEY_RESULT="lixi_result_2026";
 
-/* đã quay */
+/* đã quay rồi */
 if(localStorage.getItem(KEY_PLAY)){
   lixi.innerHTML=localStorage.getItem(KEY_RESULT);
   btn.disabled=true;
 }
 
-/* ===== random ===== */
+/* ===== RANDOM CHỈ 1k-2k-5k ===== */
 function randomTien(){
 
   let r=Math.random()*100;
 
-  if(r<45) return 1000;
-  if(r<80) return 2000;
-  if(r<99) return 5000;
-
-  const big=[10000,20000,50000,100000,200000,500000];
-  return big[Math.floor(Math.random()*big.length)];
-}
-
-/* ===== hiệu ứng ===== */
-function moneyRain(){
-  for(let i=0;i<25;i++){
-    let m=document.createElement("div");
-    m.className="money";
-    m.innerHTML="💵";
-    m.style.left=Math.random()*100+"vw";
-    m.style.animationDuration=(2+Math.random()*2)+"s";
-    document.body.appendChild(m);
-    setTimeout(()=>m.remove(),4000);
-  }
-}
-
-function firework(){
-  for(let i=0;i<10;i++){
-    let f=document.createElement("div");
-    f.className="fire";
-    f.innerHTML="🎆";
-    f.style.left=Math.random()*100+"vw";
-    f.style.top=Math.random()*60+"vh";
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1000);
-  }
+  if(r<50) return 1000;  // 50%
+  if(r<85) return 2000;  // 35%
+  return 5000;           // 15%
 }
 
 /* ===== QUAY ===== */
@@ -231,11 +178,6 @@ function quay(){
     localStorage.setItem(KEY_RESULT,text);
 
     btn.disabled=true;
-
-    if(tien>=10000){
-      firework();
-      moneyRain();
-    }
 
   },900);
 }
