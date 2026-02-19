@@ -46,7 +46,6 @@ body{
   100%{left:-120px;transform:scaleX(1) translateY(0)}
 }
 
-/* UI */
 .container{
   margin-top:45px;
   position:relative;
@@ -63,7 +62,6 @@ h1{
   opacity:.9;
 }
 
-/* lì xì */
 #lixi{
   width:240px;
   height:330px;
@@ -80,7 +78,6 @@ h1{
   transition:.4s;
 }
 
-/* nút */
 button{
   margin-top:20px;
   padding:14px 40px;
@@ -122,40 +119,25 @@ for(let i=0;i<20;i++){
   document.body.appendChild(f);
 }
 
-/* ===== CHẶN DEVTOOLS cơ bản ===== */
-document.addEventListener("contextmenu",e=>e.preventDefault());
-
-document.addEventListener("keydown",function(e){
-  if(e.key==="F12") e.preventDefault();
-
-  if(e.ctrlKey && e.shiftKey &&
-    ["I","J","C"].includes(e.key)){
-      e.preventDefault();
-  }
-
-  if(e.ctrlKey && e.key==="u"){
-      e.preventDefault();
-  }
-});
-
-/* ===== LOCAL STORAGE ===== */
+/* ===== local storage ===== */
 const KEY_PLAY="lixi_play_2026";
 const KEY_RESULT="lixi_result_2026";
 
-/* đã quay rồi */
 if(localStorage.getItem(KEY_PLAY)){
   lixi.innerHTML=localStorage.getItem(KEY_RESULT);
   btn.disabled=true;
 }
 
-/* ===== RANDOM CHỈ 1k-2k-5k ===== */
+/* ===== RANDOM THEO TỈ LỆ ===== */
 function randomTien(){
 
   let r=Math.random()*100;
 
-  if(r<50) return 1000;  // 50%
-  if(r<85) return 2000;  // 35%
-  return 5000;           // 15%
+  if(r < 40) return 10000;      // 40%
+  if(r < 70) return 20000;      // 30%
+  if(r < 85) return 50000;      // 15%
+  if(r < 95) return 100000;     // 10%
+  return 200000;                // 5%
 }
 
 /* ===== QUAY ===== */
