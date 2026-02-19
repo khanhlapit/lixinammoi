@@ -90,7 +90,6 @@ button{
   cursor:pointer;
 }
 button:hover{transform:scale(1.08);}
-button:disabled{opacity:.6}
 </style>
 </head>
 
@@ -100,15 +99,15 @@ button:disabled{opacity:.6}
 
 <div class="container">
   <h1>🧧 Quay Lì Xì Tết Ngọ 2026 🧧</h1>
-  <div class="sub">Mỗi người chỉ quay 1 lần 🎊</div>
+  <div class="sub">Quay thoải mái 🎊</div>
 
   <div id="lixi">NHẤN QUAY</div>
-  <button id="btn" onclick="quay()">QUAY NGAY</button>
+  <button onclick="quay()">QUAY NGAY</button>
 </div>
 
 <script>
 
-/* ===== hoa rơi ===== */
+/* hoa rơi */
 for(let i=0;i<20;i++){
   let f=document.createElement("div");
   f.className="flower";
@@ -119,16 +118,7 @@ for(let i=0;i<20;i++){
   document.body.appendChild(f);
 }
 
-/* ===== local storage ===== */
-const KEY_PLAY="lixi_play_2026";
-const KEY_RESULT="lixi_result_2026";
-
-if(localStorage.getItem(KEY_PLAY)){
-  lixi.innerHTML=localStorage.getItem(KEY_RESULT);
-  btn.disabled=true;
-}
-
-/* ===== RANDOM THEO TỈ LỆ ===== */
+/* RANDOM THEO TỈ LỆ */
 function randomTien(){
 
   let r=Math.random()*100;
@@ -140,26 +130,19 @@ function randomTien(){
   return 200000;                // 5%
 }
 
-/* ===== QUAY ===== */
+/* QUAY */
 function quay(){
 
-  if(localStorage.getItem(KEY_PLAY)) return;
+  const box=document.getElementById("lixi");
 
-  lixi.innerHTML="ĐANG MỞ...";
-  lixi.style.transform="scale(1.12) rotate(4deg)";
+  box.innerHTML="ĐANG MỞ...";
+  box.style.transform="scale(1.12) rotate(4deg)";
 
   setTimeout(()=>{
 
     let tien=randomTien();
-    let text=tien.toLocaleString("vi-VN")+"đ";
-
-    lixi.innerHTML=text;
-    lixi.style.transform="scale(1)";
-
-    localStorage.setItem(KEY_PLAY,"1");
-    localStorage.setItem(KEY_RESULT,text);
-
-    btn.disabled=true;
+    box.innerHTML=tien.toLocaleString("vi-VN")+"đ";
+    box.style.transform="scale(1)";
 
   },900);
 }
